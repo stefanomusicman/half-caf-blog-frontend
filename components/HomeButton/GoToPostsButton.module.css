@@ -1,0 +1,23 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 7em;
+}
+
+.main button {
+    padding: 11px 28px;
+    color: white;
+    background-color: #F08E80;
+    border: none;
+    border-radius: 5px;
+    font-family: "Work Sans", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.main button:hover {
+    cursor: pointer;
+    background-color: #f16d59;
+}

@@ -1,0 +1,144 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    margin-bottom: 5em;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+}
+
+.whiteBackground {
+    width: 100%;
+    height: 90%;
+    border-radius: 5px;
+    margin-top: 40px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.whiteBackground:hover {
+    opacity: 1;
+}
+
+.imageContainer img {
+    width: 80%;
+    height: auto;
+    z-index: 100;
+    border-radius: 5px;
+    filter: grayscale(100%);
+    transition: 0.7s;
+}
+
+.imageContainer img:hover {
+    cursor: pointer;
+    filter: grayscale(0%);
+    transform: translateY(-15px);
+    transition: 0.7s;
+}
+
+.copyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 95%;
+}
+
+.copyContainer p:nth-of-type(1) {
+    font-size: 1.1rem;
+}
+
+.copyContainer p:nth-of-type(2) {
+    font-size: 1.5rem;
+}
+
+.copyContainer h2 {
+    font-size: 1.7rem;
+    font-family: 'Crete Round', serif;
+    margin: auto;
+    margin-left: 0;
+}
+
+.copyContainer button {
+    padding: 15px 30px;
+    background-color: #F08E80;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: "Work Sans", sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease-out;
+}
+
+.copyContainer button:hover {
+    cursor: pointer;
+    background-color: #f16d59;
+    transition: all 0.3s ease-out;
+}
+
+.date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.date p:nth-of-type(2) {
+    font-size: 1.3rem;
+}
+
+.categoryBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.svg {
+    position: absolute;
+    z-index: 1;
+    fill: #F08E80;
+    opacity: 0.7;
+}
+
+.categoryBox p {
+    z-index: 100;
+}
+
+@media(max-width: 700px) {
+    .main {
+        width: 100%;
+        margin-bottom: 0em;
+    }
+
+    .copyContainer button {
+        display: none;
+    }
+
+    .imageContainer img {
+        filter: grayscale(0%);
+    }
+
+    .date {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date p:nth-of-type(2) {
+        margin: auto;
+        margin-left: 0;
+    }
+}

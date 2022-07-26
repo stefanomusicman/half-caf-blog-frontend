@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Work+Sans&display=swap');
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  background-color: #fff6ef;
+  font-family: "Work Sans", sans-serif;
+  color: #505050;
+  font-size: 16px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+strong {
+  color: #F08E80;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+}

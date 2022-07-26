@@ -1,0 +1,146 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    /* height: 25em; */
+    background-color: white;
+    background-image: url('/wave.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* margin-top: 10em; */
+}
+
+.captionBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    margin-top: 15em;
+}
+
+.captionBox h1 {
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+}
+
+.form input {
+    padding: 18px 10px;
+    width: 70%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-family: "Work Sans", sans-serif;
+}
+
+.form input::placeholder {
+    font-family: "Work Sans", sans-serif;
+}
+
+.form input:focus {
+    outline-color: #F08E80;
+}
+
+.form button {
+    padding: 15px 30px;
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    font-family: "Work Sans", sans-serif;
+    font-size: 1rem;
+    transition: all 0.5s ease-out;
+}
+
+.form button:hover {
+    cursor: pointer;
+    background-color: #F08E80;
+    color: white;
+    transition: all 0.5s ease-out;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+}
+
+.copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 4em;
+}
+
+.copyright h3 {
+    font-size: 1rem;
+}
+
+@media(max-width: 1400px) {
+    .form {
+        width: 50%
+    }
+}
+
+@media(max-width: 1400px) {
+    .form {
+        width: 60%
+    }
+}
+
+@media(max-width: 1000px) {
+    .form {
+        width: 70%
+    }
+}
+
+@media(max-width: 800px) {
+    .form {
+        width: 80%
+    }
+}
+
+@media(max-width: 700px) {
+    .main {
+        margin-top: 8em;
+    }
+    .captionBox {
+        width: 75%;
+    }
+    .form {
+        flex-direction: column;
+    }
+
+    .form input {
+        margin-right: 0;
+    }
+
+    .form button {
+        width: 70%;
+    }
+}
+
+@media(max-width: 500px) {
+    .captionBox {
+        width: 100%;
+    }
+    .form {
+        flex-direction: column;
+    }
+
+    .form input {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .form button {
+        width: 100%;
+    }
+}

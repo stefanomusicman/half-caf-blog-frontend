@@ -1,0 +1,62 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 55vh;
+    position: relative;
+}
+
+.textBox {
+    z-index: 100;
+    height: 50vh;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.textBox h1 {
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Crete Round', serif;
+    line-height: 1.4;
+    color: #152035;
+    z-index: 1000;
+}
+
+@media(max-width: 1300px) {
+    .textBox h1 {
+        font-size: 45px;
+    }
+}
+
+@media(max-width: 1000px) {
+    .textBox {
+        width: 50%;
+    }
+
+
+    .textBox h1 {
+        font-size: 40px;
+    }
+}
+
+@media(max-width: 700px) {
+    .textBox {
+        width: 90%;
+    }
+
+
+    .textBox h1 {
+        font-size: 37px;
+    }
+}
+
+@media(max-width: 500px) {
+    .textBox h1 {
+        font-size: 30px;
+    }
+}

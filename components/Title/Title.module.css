@@ -1,0 +1,19 @@
+.titleBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 25px;
+    position: relative;
+}
+
+.titleBox h1 {
+    z-index: 100;
+}
+
+.svg {
+    position: absolute;
+    z-index: 1;
+    fill: #F08E80;
+    opacity: 0.7;
+}

@@ -1,0 +1,86 @@
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.captionBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    margin-top: 4em;
+}
+
+.captionBox h2 {
+    text-align: center;
+    font-size: 38px;
+    font-family: 'Crete Round', serif;
+}
+
+/* Images */
+.imageContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 85%;
+    margin-top: 5em;
+    flex-wrap: wrap;
+}
+
+.image {
+    border-radius: 5px;
+}
+
+.descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-top: 5em;
+}
+
+.paragraphOne {
+    width: 80%;
+    line-height: 1.5;
+}
+
+.paragraphTwo {
+    width: 80%;
+    line-height: 1.5;
+}
+
+.descriptionContainer p {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+@media(max-width: 700px) {
+    .captionBox {
+        width: 100%;
+    }
+
+    .captionBox h2 {
+        font-size: 25px;
+    }
+
+    .descriptionContainer {
+        width: 100%;
+    }
+
+    .paragraphOne {
+        width: 90%;
+    }
+
+    .paragraphTwo {
+        width: 90%;
+    }
+
+    .descriptionContainer p {
+        font-size: 1rem;
+    }
+}

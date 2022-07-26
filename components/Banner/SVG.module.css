@@ -1,0 +1,15 @@
+.wave {
+    position: absolute;
+    z-index: 1;
+}
+
+.scribble {
+    opacity: 0.3;
+    fill: #f5d8c1;
+}
+
+@media(max-width: 700px) {
+    .wave {
+        width: 100%;
+    }
+}

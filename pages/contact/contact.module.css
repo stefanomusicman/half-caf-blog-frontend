@@ -1,0 +1,137 @@
+.contentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Main Body */
+.primaryBodyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin-top: 4em;
+}
+
+/* Left side */
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.paragraph1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 95%;
+    height: 50%;
+    margin-bottom: 5em;
+}
+
+.paragraph1 p {
+    font-size: 1.2rem;
+}
+
+.paragraph2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 50%;
+}
+
+.paragraph2 h2:nth-child(1) {
+    margin: auto;
+    margin-left: 0;
+}
+
+.iconsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    margin-top: 20px;
+}
+
+.facebook {
+    width: 35px;
+    height: 35px;
+    transition: all 0.2s ease-out;
+}
+
+.facebook:hover {
+    cursor: pointer;
+    color: rgb(66 103 178);
+    transform: scale(1.2);
+    transition: all 0.2s ease-out;
+}
+
+.instagram {
+    width: 35px;
+    height: 35px;
+    transition: all 0.2s ease-out;
+}
+
+.instagram:hover {
+    cursor: pointer;
+    color: #fb3958;
+    transform: scale(1.2);
+    transition: all 0.2s ease-out;
+}
+
+/* Right Side */
+.rightSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+}
+
+@media(max-width: 1400px) {
+    .primaryBodyContainer {
+        width: 70%;
+    }
+}
+
+@media(max-width: 1000px) {
+    .primaryBodyContainer {
+        width: 80%;
+    }
+}
+
+@media(max-width: 800px) {
+    .primaryBodyContainer {
+        flex-direction: column;
+    }
+
+    .leftSide {
+        width: 80%;
+        margin-bottom: 4em;
+    }
+
+    .rightSide {
+        width: 80%;
+    }
+
+    .paragraph1 {
+        margin-bottom: 2em;
+    }
+}
+
+@media(max-width: 500px) {
+    .leftSide {
+        width: 90%;
+    }
+
+    .rightSide {
+        width: 90%;
+    }
+}
