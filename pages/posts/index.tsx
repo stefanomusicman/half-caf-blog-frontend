@@ -25,8 +25,7 @@ export async function getStaticProps() {
     const [pageNumber, setPageNumber] = useState<number>(1); //Responsible for storing the page number
 
     //Changes the page number based on which one user clicks on and loads appropriate content
-    function pageLoadHandler(page: number): void {
-      setPageNumber(page);
+    function pageLoadHandler(): void {
       const fetchPageData = async () => {
         const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`);
         const data = await res.json();
@@ -67,7 +66,7 @@ export async function getStaticProps() {
 
     // Responsible for listening to every time a user wants to navigate to a different page
     useEffect((): void => {
-      pageLoadHandler(pageNumber);
+      pageLoadHandler();
     }, [pageNumber])
 
     return(
