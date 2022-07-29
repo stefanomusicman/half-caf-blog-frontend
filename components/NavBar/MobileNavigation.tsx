@@ -3,6 +3,7 @@ import styles from './MobileNavigation.module.css';
 import { useRouter } from 'next/router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ImCancelCircle } from 'react-icons/im';
+import Image from 'next/image';
 
 const MobileNavigation = () => {
 
@@ -30,7 +31,8 @@ const MobileNavigation = () => {
         <Fragment>
             <div className={styles.main}>
                 <div className={styles.logo}>
-                    <h3 onClick={NavigateHome}>Half Caf Blog</h3>
+                    {/* <h3 onClick={NavigateHome}>Half Caf Blog</h3> */}
+                    <Image className={styles.logoIcon} onClick={NavigateHome} src={"/logo.jpg"} width={75} height={75}/>
                     {isToggled && <GiHamburgerMenu onClick={() => setIsToggled(!isToggled)} className={styles.hamburger}/>}
                     {!isToggled && <ImCancelCircle onClick={() => setIsToggled(!isToggled)} className={styles.hamburger}/>}
                 </div>

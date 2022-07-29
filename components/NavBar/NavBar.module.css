@@ -14,7 +14,7 @@
     width: 15%;
 }
 
-.logo h3 {
+/* .logo h3 {
     transition: all 0.5s ease-out;
 }
 
@@ -22,6 +22,10 @@
     cursor: pointer;
     color: #F08E80;
     transition: all 0.5s ease-out;
+} */
+
+.logoIcon:hover {
+    cursor: pointer;
 }
 
 .links {
