@@ -32,7 +32,7 @@ const MobileNavigation = () => {
             <div className={styles.main}>
                 <div className={styles.logo}>
                     {/* <h3 onClick={NavigateHome}>Half Caf Blog</h3> */}
-                    <Image className={styles.logoIcon} onClick={NavigateHome} src={"/logo.jpg"} width={75} height={75}/>
+                    <Image className={styles.logoIcon} onClick={NavigateHome} src={"/logo.jpg"} width={75} height={75} alt='icon'/>
                     {isToggled && <GiHamburgerMenu onClick={() => setIsToggled(!isToggled)} className={styles.hamburger}/>}
                     {!isToggled && <ImCancelCircle onClick={() => setIsToggled(!isToggled)} className={styles.hamburger}/>}
                 </div>

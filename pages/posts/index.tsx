@@ -24,17 +24,6 @@ export async function getStaticProps() {
     const [posts, setPosts] = useState(data); //Responsible for storing the data being retrieved from strapi
     const [pageNumber, setPageNumber] = useState<number>(1); //Responsible for storing the page number
 
-    //Changes the page number based on which one user clicks on and loads appropriate content
-    function pageLoadHandler(): void {
-      const fetchPageData = async () => {
-        const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`);
-        const data = await res.json();
-  
-        setPosts(data);
-      }
-      fetchPageData();
-    }
-
     //Creates the different page numbers
     let pages: any = [];
     (function createPages(): void {
@@ -66,8 +55,14 @@ export async function getStaticProps() {
 
     // Responsible for listening to every time a user wants to navigate to a different page
     useEffect((): void => {
-      pageLoadHandler();
-    }, [pageNumber])
+      const fetchPageData = async () => {
+        const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`);
+        const data = await res.json();
+  
+        setPosts(data);
+      }
+      fetchPageData();
+    }, [pageNumber]);
 
     return(
       <Fragment>

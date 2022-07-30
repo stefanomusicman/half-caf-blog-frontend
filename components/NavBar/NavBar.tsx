@@ -28,7 +28,7 @@ const NavBar = () => {
             <div className={styles.main}>
                 <div className={styles.logo}>
                     {/* <h3 onClick={NavigateHome}>Half Caf Blog</h3> */}
-                    <Image className={styles.logoIcon} onClick={NavigateHome} src={"/logo.jpg"} width={110} height={110}/>
+                    <Image className={styles.logoIcon} onClick={NavigateHome} src={"/logo.jpg"} width={110} height={110} alt='logo'/>
                 </div>
                 <div className={styles.links}>
                     <h3 onClick={NavigateAbout}>About Us</h3>

@@ -10,7 +10,7 @@ const Navigation = () => {
         if(window.innerWidth <= 1000) {
             setIsMobile(true)
         }
-    });
+    }, []);
 
     return(
         <Fragment>
