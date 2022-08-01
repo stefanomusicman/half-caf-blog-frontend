@@ -81,7 +81,7 @@
     font-size: 1rem;
 }
 
-@media(max-width: 1400px) {
+@media(max-width: 1700px) {
     .form {
         width: 50%
     }
@@ -99,13 +99,13 @@
     }
 }
 
-@media(max-width: 800px) {
+@media(max-width: 850px) {
     .form {
         width: 80%
     }
 }
 
-@media(max-width: 700px) {
+@media(max-width: 750px) {
     .main {
         margin-top: 8em;
     }
