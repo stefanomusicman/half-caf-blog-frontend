@@ -5,29 +5,30 @@ import Navigation from "../../components/NavBar/Navigation";
 import styles from './posts.module.css';
 import Title from "../../components/Title/Title";
 import { BsSearch } from 'react-icons/bs';
+import { fetcher } from "../../lib/api";
+import useSWR from "swr";
 
 export async function getStaticProps() {
 
   const res = await fetch('https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=1&pagination[pageSize]=6');
-  const data = await res.json();
+  const postData = await res.json();
 
   return {
-    props: {data},
+    props: {postData},
   }
 }
   
-  const BlogPosts: React.FC<{data: any}> = ({data}) => {
+  const BlogPosts: React.FC<{postData: any}> = ({postData}) => {
 
     const [searchTerm, setSearchTerm] = useState<string>(''); //Responsible for storing the search term
     const [searchResults, setSearchResults] = useState<any>([]);
     const [isSearching, setIsSearching] = useState<boolean>(false);
-    const [posts, setPosts] = useState(data); //Responsible for storing the data being retrieved from strapi
     const [pageNumber, setPageNumber] = useState<number>(1); //Responsible for storing the page number
 
     //Creates the different page numbers
     let pages: any = [];
     (function createPages(): void {
-      for(let i = 1; i <= posts.meta.pagination.pageCount; i++) {
+      for(let i = 1; i <= postData.meta.pagination.pageCount; i++) {
         pages.push(i);
       }
     })();
@@ -54,15 +55,10 @@ export async function getStaticProps() {
     }, [searchTerm]);
 
     // Responsible for listening to every time a user wants to navigate to a different page
-    useEffect((): void => {
-      const fetchPageData = async () => {
-        const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`);
-        const data = await res.json();
-  
-        setPosts(data);
-      }
-      fetchPageData();
-    }, [pageNumber]);
+    const { data } = useSWR(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`, fetcher, 
+      {
+        fallbackData: postData
+      })
 
     return(
       <Fragment>
@@ -76,7 +72,7 @@ export async function getStaticProps() {
                    placeholder="Search Post"/>
           </div>
           <div className={styles.primaryBodyContainer}>
-            {!isSearching && posts.data.map((item: any) => 
+            {!isSearching && data.data.map((item: any) => 
               <BlogCard introText={item.attributes.cardText} 
                         image={item.attributes.cardPhoto.data.attributes.formats.medium.url} 
                         key={item.id} 
@@ -94,7 +90,7 @@ export async function getStaticProps() {
                         category={item.attributes.category.data.attributes.name}/>)}
           </div>
           <div className={styles.pageNumbersContainer}>
-              {pages.map((num: number) =>  <div style={{'opacity': num === pageNumber ? '1' : '0.6'}} key={num} onClick={(): void => setPageNumber(num)} className={styles.pageNumber}>{num}</div>)}
+              {pages.map((num: number) =>  <button disabled={num === pageNumber} style={{'opacity': num === pageNumber ? '1' : '0.6'}} key={num} onClick={(): void => setPageNumber(num)} className={styles.pageNumber}>{num}</button>)}
           </div>
           <Footer />
         </div>
