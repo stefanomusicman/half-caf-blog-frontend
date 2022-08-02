@@ -6,6 +6,7 @@ import { BsInstagram } from 'react-icons/bs';
 import Footer from "../../components/Footer/Footer";
 import Title from "../../components/Title/Title";
 import ContactForm from "../../components/ContactForm/ContactForm";
+import Link from "next/link";
 
 const Contact = () => {
     return(
@@ -23,8 +24,8 @@ const Contact = () => {
                             <h2>Hate forms?</h2>
                             <h2>Reach out on social media!</h2>
                             <div className={styles.iconsContainer}>
-                                <BsFacebook className={styles.facebook}/>
-                                <BsInstagram className={styles.instagram}/>
+                                <a target="_blank" rel="noreferrer" href="https://www.facebook.com/Half-Caf-Blog-101063532712900"><BsFacebook className={styles.facebook}/></a>
+                                <a target="_blank" rel="noreferrer" href="https://www.instagram.com/halfcafblog/?hl=en"><BsInstagram className={styles.instagram}/></a>
                             </div>
                         </div>
                     </div>
