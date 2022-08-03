@@ -7,6 +7,7 @@ import Title from "../../components/Title/Title";
 import { BsSearch } from 'react-icons/bs';
 import { fetcher } from "../../lib/api";
 import useSWR from "swr";
+import { Link } from 'react-scroll'
 
 export async function getStaticProps() {
 
@@ -61,7 +62,7 @@ export async function getStaticProps() {
       })
 
     return(
-      <Fragment>
+      <div id="top">
         <Navigation />
         <div className={styles.contentBox}>
           <Title title='All Posts'/>
@@ -90,11 +91,11 @@ export async function getStaticProps() {
                         category={item.attributes.category.data.attributes.name}/>)}
           </div>
           <div className={styles.pageNumbersContainer}>
-              {pages.map((num: number) =>  <button disabled={num === pageNumber} style={{'opacity': num === pageNumber ? '1' : '0.6'}} key={num} onClick={(): void => setPageNumber(num)} className={styles.pageNumber}>{num}</button>)}
+              {pages.map((num: number) =>  <Link key={num} to="top" spy={true} smooth={true} duration={1200}><button disabled={num === pageNumber} style={{'opacity': num === pageNumber ? '1' : '0.6'}} key={num} onClick={(): void => setPageNumber(num)} className={styles.pageNumber}>{num}</button></Link>)}
           </div>
           <Footer />
         </div>
-      </Fragment>
+      </div>
   )
 }
 
