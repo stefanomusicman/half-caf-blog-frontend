@@ -7,10 +7,15 @@ import coffee2 from "../../public/coffee2.jpg";
 import coffee3 from "../../public/coffee3.jpg";
 import Footer from "../../components/Footer/Footer";
 import Title from "../../components/Title/Title";
+import Head from "next/head";
 
 const About = () => {
     return(
         <Fragment>
+            <Head>
+                <title>About Us</title>
+                <meta name="description" content="Learn about who we are and how we go about providing the best info for all of our readers!" />
+            </Head>
             <Navigation />
             <div className={styles.contentContainer}>
                 <Title title="About Us"/>

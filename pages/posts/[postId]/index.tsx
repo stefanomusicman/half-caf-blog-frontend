@@ -4,6 +4,7 @@ import Navigation from "../../../components/NavBar/Navigation";
 import styles from './post.module.css';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import Image from "next/image";
+import Head from "next/head";
 
 export async function getStaticPaths() {
 
@@ -49,6 +50,10 @@ const Post: React.FC<{data: any}> = ({data}) => {
 
     return(
         <Fragment>
+            <Head>
+                <title>{title}</title>
+                <meta name="description" content={`Come read up on ${title}`} />
+            </Head>
             <Navigation />
             <div className={styles.main}>
                 <div className={styles.contentContainer}>

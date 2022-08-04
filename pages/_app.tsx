@@ -9,6 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Half Caf Blog</title>
         <link rel="icon" type="image/x-icon" href="/favicon2.ico"></link>
+        <meta name='description' content='Learn about all the best coffee shops in the Greater Montreal Area!' />
       </Head>
       <GoogleAnalytics />
       <Component {...pageProps} />

@@ -6,11 +6,15 @@ import { BsInstagram } from 'react-icons/bs';
 import Footer from "../../components/Footer/Footer";
 import Title from "../../components/Title/Title";
 import ContactForm from "../../components/ContactForm/ContactForm";
-import Link from "next/link";
+import Head from "next/head";
 
 const Contact = () => {
     return(
         <Fragment>
+            <Head>
+                <title>Contact</title>
+                <meta name="description" content="Feel free to reach out to us with questions you may have!" />
+            </Head>
             <Navigation />
             <div className={styles.contentBox}>
                 <Title title='Contact'/>

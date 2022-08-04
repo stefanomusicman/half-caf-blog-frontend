@@ -8,6 +8,7 @@ import { BsSearch } from 'react-icons/bs';
 import { fetcher } from "../../lib/api";
 import useSWR from "swr";
 import { Link } from 'react-scroll'
+import Head from "next/head";
 
 export async function getStaticProps() {
 
@@ -63,6 +64,10 @@ export async function getStaticProps() {
 
     return(
       <div id="top">
+        <Head>
+          <title>Blog Posts</title>
+          <meta name="description" content="Come check out our latest posts discussing coffee shops in and around Montreal!" />
+        </Head>
         <Navigation />
         <div className={styles.contentBox}>
           <Title title='All Posts'/>
