@@ -90,7 +90,7 @@ export async function getStaticProps() {
           <div className={styles.primaryBodyContainer}>
             {!isSearching && data.data.map((item: any) => 
               <BlogCard introText={item.attributes.cardText} 
-                        image={item.attributes.cardPhoto.data.attributes.formats.medium.url} 
+                        image={item.attributes.cardPhoto.data.attributes.url} 
                         key={item.id} 
                         id={item.id} 
                         title={item.attributes.title}
@@ -98,7 +98,7 @@ export async function getStaticProps() {
                         category={item.attributes.category.data.attributes.name}/>)}
             {isSearching && searchResults.map((item: any) => 
               <BlogCard introText={item.attributes.cardText} 
-                        image={item.attributes.cardPhoto.data.attributes.formats.medium.url} 
+                        image={item.attributes.cardPhoto.data.attributes.url} 
                         key={item.id} 
                         id={item.id} 
                         title={item.attributes.title}

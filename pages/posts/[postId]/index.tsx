@@ -44,8 +44,8 @@ const Post: React.FC<{data: any}> = ({data}) => {
     const milkDrinkReview = data.attributes.milkDrinkReview;
     const locationReview = data.attributes.locationReview;
     const finalVerdict = data.attributes.finalVerdict;
-    const heroImage = data.attributes.heroImage.data.attributes.formats.large.url;
-    const secondImage = data.attributes.secondImage.data.attributes.formats.large.url;
+    const heroImage = data.attributes.heroImage.data.attributes.url;
+    const secondImage = data.attributes.secondImage.data.attributes.url;
     const date = new Date(data.attributes.createdAt).toString().split('').slice(0,16).join('');
 
     return(
