@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import Footer from "../../components/Footer/Footer";
 import Navigation from "../../components/NavBar/Navigation";
@@ -26,6 +26,7 @@ export async function getStaticProps() {
     const [searchResults, setSearchResults] = useState<any>([]);
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [pageNumber, setPageNumber] = useState<number>(1); //Responsible for storing the page number
+    const inputRef = useRef<HTMLInputElement>(null);
 
     //Creates the different page numbers
     let pages: any = [];
@@ -48,13 +49,20 @@ export async function getStaticProps() {
     }
 
     // Responsible for listening to every search term and carrying out a request to fetch appropriate data
-    useEffect((): void => {
-      if(searchTerm.length === 0) {
+    useEffect(() => {
+      if(searchTerm.length === 0 && inputRef.current?.value.length === 0) {
         setIsSearching(false);
       } else {
-        getDataFromSearch(searchTerm);
+        const timer = setTimeout(() => {
+          if(searchTerm === String(inputRef.current?.value)){
+            getDataFromSearch(searchTerm);
+          }
+        }, 500);
+        return () => {
+          clearTimeout(timer);
+        }
       }
-    }, [searchTerm]);
+    }, [searchTerm, inputRef]);
 
     // Responsible for listening to every time a user wants to navigate to a different page
     const { data } = useSWR(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`, fetcher, 
@@ -75,7 +83,9 @@ export async function getStaticProps() {
             <BsSearch className={styles.searchIcon}/>
             <input onChange={(e) => setSearchTerm(e.target.value)} 
                    value={searchTerm} 
-                   placeholder="Search Post"/>
+                   placeholder="Search Post"
+                   ref={inputRef}
+                   type='text'/>
           </div>
           <div className={styles.primaryBodyContainer}>
             {!isSearching && data.data.map((item: any) => 
