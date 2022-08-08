@@ -26,7 +26,7 @@ strong {
   user-select: none;
 }
 
-input {
+input, textarea {
   -webkit-user-select: text; /* Chrome, Opera, Safari */
   -moz-user-select: text; /* Firefox 2+ */
   -ms-user-select: text; /* IE 10+ */
