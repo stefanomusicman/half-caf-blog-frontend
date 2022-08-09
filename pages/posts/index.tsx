@@ -12,7 +12,7 @@ import Head from "next/head";
 
 export async function getStaticProps() {
 
-  const res = await fetch('https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=1&pagination[pageSize]=6');
+  const res = await fetch('https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&pagination[page]=1&pagination[pageSize]=6&populate[cardPhoto][fields][0]=url');
   const postData = await res.json();
 
   return {
@@ -65,7 +65,7 @@ export async function getStaticProps() {
     }, [searchTerm, inputRef]);
 
     // Responsible for listening to every time a user wants to navigate to a different page
-    const { data } = useSWR(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate=cardPhoto&pagination[page]=${pageNumber}&pagination[pageSize]=6`, fetcher, 
+    const { data } = useSWR(`https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&pagination[page]=${pageNumber}&pagination[pageSize]=6&populate[cardPhoto][fields][0]=url`, fetcher, 
       {
         fallbackData: postData
       })

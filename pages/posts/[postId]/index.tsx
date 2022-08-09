@@ -24,7 +24,7 @@ export async function getStaticProps({params}: any) {
 
     const id: Number = Number(params.postId);
 
-    const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts/${id}?populate=heroImage,secondImage,category`);
+    const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts/${id}?populate[heroImage][fields][0]=url&populate[secondImage][fields][0]=url`);
     const data = await res.json();
 
     return {
