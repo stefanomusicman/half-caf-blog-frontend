@@ -32,21 +32,56 @@ export async function getStaticProps({params}: any) {
     }
 }
 
+type PostData = {
+    data: {
+        id: number,
+        attributes: {
+            title: string,
+            IntroText: string,
+            espressoReview: string,
+            locationReview: string,
+            finalVerdict: string,
+            cardText: string,
+            milkDrinkReview: string,
+            createdAt: string,
+            updatedAt: string,
+            publishedAt: string,
+            heroImage: {
+                data: {
+                    id: number,
+                    attributes: {
+                        url: string
+                    }
+                }
+            },
+            secondImage: {
+                data: {
+                    id: number,
+                    attributes: {
+                        url: string
+                    }
+                }
+            }
+        }
+    },
+    meta: {}
+}
+
 const Post: React.FC<{data: any}> = ({data}) => {
 
     if(!data) {
         return null
     }
 
-    const title = data.attributes.title;
-    const intro = data.attributes.IntroText;
-    const espressoReview = data.attributes.espressoReview;
-    const milkDrinkReview = data.attributes.milkDrinkReview;
-    const locationReview = data.attributes.locationReview;
-    const finalVerdict = data.attributes.finalVerdict;
-    const heroImage = data.attributes.heroImage.data.attributes.url;
-    const secondImage = data.attributes.secondImage.data.attributes.url;
-    const date = new Date(data.attributes.createdAt).toString().split('').slice(0,16).join('');
+    const title: string = data.attributes.title;
+    const intro: string = data.attributes.IntroText;
+    const espressoReview: string = data.attributes.espressoReview;
+    const milkDrinkReview: string = data.attributes.milkDrinkReview;
+    const locationReview: string = data.attributes.locationReview;
+    const finalVerdict: string = data.attributes.finalVerdict;
+    const heroImage: string = data.attributes.heroImage.data.attributes.url;
+    const secondImage: string = data.attributes.secondImage.data.attributes.url;
+    const date: string = new Date(data.attributes.createdAt).toString().split('').slice(0,16).join('');
 
     return(
         <Fragment>

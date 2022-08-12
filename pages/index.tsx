@@ -3,6 +3,7 @@ import React from 'react'
 import Banner from '../components/Banner/Banner'
 import Footer from '../components/Footer/Footer'
 import Navigation from '../components/NavBar/Navigation'
+import { PostInfo } from './posts'
 
 export async function getStaticProps() {
 
@@ -14,7 +15,7 @@ export async function getStaticProps() {
   }
 }
 
-const Home: NextPage<{data: any}> = ({data}) => {
+const Home: NextPage<{data: PostInfo[]}> = ({data}) => {
 
   return (
     <React.Fragment>

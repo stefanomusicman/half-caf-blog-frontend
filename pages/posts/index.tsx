@@ -19,8 +19,45 @@ export async function getStaticProps() {
     props: {postData},
   }
 }
+
+export type PostInfo = {
+  id: number,
+  attributes: {
+    title: string,
+    cardText: string,
+    createdAt: string,
+    category: {
+        data: {
+            id: number,
+            attributes: {
+                name: string
+            }
+        }
+    },
+    cardPhoto: {
+      data: {
+        id: number,
+        attributes: {
+          url: string
+        }
+      }
+    }
+  }
+}
+
+type BlogData = {
+  data: PostInfo[],
+  meta: {
+    pagination: {
+      page: number,
+      pageSize: number,
+      pageCount: number,
+      total: number
+    }
+  }
+}
   
-  const BlogPosts: React.FC<{postData: any}> = ({postData}) => {
+  const BlogPosts: React.FC<{postData: BlogData}> = ({postData}) => {
 
     const [searchTerm, setSearchTerm] = useState<string>(''); //Responsible for storing the search term
     const [searchResults, setSearchResults] = useState<any>([]);
