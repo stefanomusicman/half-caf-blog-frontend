@@ -124,7 +124,7 @@ type BlogData = {
                    ref={inputRef}
                    type='text'/>
           </div>
-          <div className={styles.primaryBodyContainer}>
+          <div className={isSearching && searchResults.length === 0 ? styles.primaryBodyContainerSearch : styles.primaryBodyContainer}>
             {!isSearching && data.data.map((item: any) => 
               <BlogCard introText={item.attributes.cardText} 
                         image={item.attributes.cardPhoto.data.attributes.url} 
@@ -141,6 +141,7 @@ type BlogData = {
                         title={item.attributes.title}
                         dateCreated={item.attributes.createdAt}
                         category={item.attributes.category.data.attributes.name}/>)}
+            {isSearching && searchResults.length === 0 ? <p className={styles.noResults}>Sorry nothing was found...</p> : null}
           </div>
           <div className={styles.pageNumbersContainer}>
               {pages.map((num: number) =>  <Link key={num} to="top" spy={true} smooth={true} duration={1200}><button disabled={num === pageNumber} style={{'opacity': num === pageNumber ? '1' : '0.6'}} key={num} onClick={(): void => setPageNumber(num)} className={styles.pageNumber}>{num}</button></Link>)}

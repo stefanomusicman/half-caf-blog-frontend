@@ -45,6 +45,20 @@
     flex-wrap: wrap;
 }
 
+.primaryBodyConatinerSearch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin-top: 4em;
+    flex-wrap: wrap;
+}
+
+.noResults {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
 /* Pages */
 .pageNumbersContainer {
     display: flex;
