@@ -1,89 +1,58 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Footer from "../../../components/Footer/Footer";
 import Navigation from "../../../components/NavBar/Navigation";
 import styles from './post.module.css';
 import { AiOutlineCalendar } from 'react-icons/ai';
-import Image from "next/image";
 import Head from "next/head";
+import { useAuthContext } from "../../../firebase/useAuthContext";
+import { Post } from "../../../types/Post";
+import { useRouter } from 'next/router';
 
-export async function getStaticPaths() {
+const PostDetails: React.FC = () => {
+    const router = useRouter();
+    const { postId } = router.query;
+    const [data, setData] = useState<Post | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const { getPostById } = useAuthContext();
 
-    const res = await fetch('https://half-caf-blog.herokuapp.com/api/posts');
-    const { data } = await res.json();
-    const paths = data.map((post: any) => {
-        return { params: { postId: post.id.toString() } }
-    });
-
-    return {
-        paths: paths,
-        fallback: true
-    }
-}
-
-export async function getStaticProps({params}: any) {
-
-    const id: Number = Number(params.postId);
-
-    const res = await fetch(`https://half-caf-blog.herokuapp.com/api/posts/${id}?populate[heroImage][fields][0]=url&populate[secondImage][fields][0]=url`);
-    const data = await res.json();
-
-    return {
-        props: data
-    }
-}
-
-type PostData = {
-    data: {
-        id: number,
-        attributes: {
-            title: string,
-            IntroText: string,
-            espressoReview: string,
-            locationReview: string,
-            finalVerdict: string,
-            cardText: string,
-            milkDrinkReview: string,
-            createdAt: string,
-            updatedAt: string,
-            publishedAt: string,
-            heroImage: {
-                data: {
-                    id: number,
-                    attributes: {
-                        url: string
+    useEffect(() => {
+        const fetchPost = async () => {
+            if (postId) {
+                try {
+                    const post = await getPostById(postId as string);
+                    if (post) {
+                        setData(post);
+                    } else {
+                        setError('Post not found');
                     }
-                }
-            },
-            secondImage: {
-                data: {
-                    id: number,
-                    attributes: {
-                        url: string
-                    }
+                } catch (err) {
+                    setError('An error occurred while fetching the post');
+                } finally {
+                    setLoading(false);
                 }
             }
-        }
-    },
-    meta: {}
-}
+        };
 
-const Post: React.FC<{data: any}> = ({data}) => {
+        fetchPost();
+    }, [postId]);
 
-    if(!data) {
-        return null
+    if (loading) {
+        return <p>Loading...</p>;
     }
 
-    const title: string = data.attributes.title;
-    const intro: string = data.attributes.IntroText;
-    const espressoReview: string = data.attributes.espressoReview;
-    const milkDrinkReview: string = data.attributes.milkDrinkReview;
-    const locationReview: string = data.attributes.locationReview;
-    const finalVerdict: string = data.attributes.finalVerdict;
-    const heroImage: string = data.attributes.heroImage.data.attributes.url;
-    const secondImage: string = data.attributes.secondImage.data.attributes.url;
-    const date: string = new Date(data.attributes.createdAt).toString().split('').slice(0,16).join('');
+    if (error) {
+        return <p>{error}</p>;
+    }
 
-    return(
+    if (!data) {
+        return null;
+    }
+
+    const { title, introText, espressoReview, milkDrinkReview, locationReview, finalVerdict, heroImage, secondImage, createdAt } = data;
+    const date = createdAt.toDate().toLocaleDateString();
+
+    return (
         <Fragment>
             <Head>
                 <title>{title}</title>
@@ -94,23 +63,25 @@ const Post: React.FC<{data: any}> = ({data}) => {
                 <div className={styles.contentContainer}>
                     <div className={styles.titleContainer}>
                         <h1>{title}</h1>
-                        <div className={styles.date}>{<AiOutlineCalendar className={styles.calender}/>}{date}</div>
+                        <div className={styles.date}>
+                            <AiOutlineCalendar className={styles.calender} /> {date}
+                        </div>
                     </div>
-                    <img alt="coffee" className={styles.image} src={heroImage}/>
+                    <img alt="coffee" className={styles.image} src={heroImage} />
                     <div className={styles.introContainer}>
-                        <p>{intro}</p>
+                        <p>{introText}</p>
                     </div>
                     <div className={styles.coffeeContainer}>
                         <h2>Coffee Review</h2>
-                        <p>{<strong>Espresso</strong>} - {espressoReview}</p>
+                        <p><strong>Espresso</strong> - {espressoReview}</p>
                         <br />
-                        <p>{<strong>Milk Drink</strong>} - {milkDrinkReview}</p>
+                        <p><strong>Milk Drink</strong> - {milkDrinkReview}</p>
                     </div>
                     <div className={styles.locationContainer}>
                         <h2>Location Review</h2>
                         <p>{locationReview}</p>
                     </div>
-                    <img alt="coffee" className={styles.image} src={secondImage}/>
+                    <img alt="coffee" className={styles.image} src={secondImage} />
                     <div className={styles.finalContainer}>
                         <p>{finalVerdict}</p>
                     </div>
@@ -118,7 +89,7 @@ const Post: React.FC<{data: any}> = ({data}) => {
             </div>
             <Footer />
         </Fragment>
-    )
-}
+    );
+};
 
-export default Post;
+export default PostDetails;

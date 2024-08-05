@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export type Post = {
     id: string;
     title: string;
@@ -8,6 +10,6 @@ export type Post = {
     finalVerdict: string;
     heroImage: string;
     secondImage: string;
-    createdAt: Date;
+    createdAt: Timestamp;
     category: string;
 }

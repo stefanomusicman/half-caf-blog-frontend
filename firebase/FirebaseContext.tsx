@@ -22,7 +22,6 @@ type AuthProviderProps = {
 export function AuthProvider({ children }: AuthProviderProps) {
     // FETCH ALL POSTS FROM FIRESTORE
     const getAllPosts = useCallback(async (): Promise<Post[]> => {
-        console.log(FIREBASE_API);
         try {
             const postsCollectionRef = collection(DB, 'posts');
             const querySnapshot = await getDocs(postsCollectionRef);
@@ -39,5 +38,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }, []);
 
-    return <AuthContext.Provider value={{ getAllPosts }}>{children}</AuthContext.Provider>
+    // FETCH POST BY ID
+    const getPostById = useCallback(async (id: string): Promise<Post> => {
+        try {
+            const postRef = doc(DB, 'posts', id);
+            const postSnapshot = await getDoc(postRef);
+
+            if (postSnapshot.exists()) {
+                return { ...postSnapshot.data() } as Post;
+            } else {
+                throw new Error(`No post found with the id: ${id}`);
+            }
+        } catch (error) {
+            console.error('Error fetching posts: ', error);
+            throw new Error(`Error fetching post with id: ${id}`);
+        }
+    }, []);
+
+    return <AuthContext.Provider value={{ getAllPosts, getPostById }}>{children}</AuthContext.Provider>
 }

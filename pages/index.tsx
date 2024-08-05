@@ -19,11 +19,13 @@ import { AuthProvider } from '../firebase/FirebaseContext'
 const Home: NextPage<{ data: PostInfo[] }> = ({ data }) => {
 
   return (
-    <AuthProvider>
+    <React.Fragment>
+      {/* // <AuthProvider> */}
       <Navigation />
       <Banner />
       <Footer />
-    </AuthProvider>
+      {/* </AuthProvider> */}
+    </React.Fragment>
   )
 }
 

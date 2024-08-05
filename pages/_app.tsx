@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import GoogleAnalytics from '../components/GoogleAnalytics/GoogleAnalytics'
+import { AuthProvider } from '../firebase/FirebaseContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name='description' content='Learn about all the best coffee shops in the Greater Montreal Area!' />
       </Head>
       {/* <GoogleAnalytics /> */}
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   )
 }

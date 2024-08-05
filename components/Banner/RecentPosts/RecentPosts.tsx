@@ -23,30 +23,42 @@ const RecentPosts = () => {
         fetchAllPosts();
     }, [getAllPosts]);
 
+    const createdAt = data[0]?.createdAt;
+    const date = createdAt ? createdAt.toDate() : new Date();
+    const formattedDate = date.toLocaleDateString();
+
+    const createdAt2 = data[1]?.createdAt;
+    const date2 = createdAt2 ? createdAt2.toDate() : new Date();
+    const formattedDate2 = date2.toLocaleDateString();
+
     return (
         <div className={styles.contentBox}>
             <Title title="Recent Posts" />
             <div className={styles.primaryBodyContainer}>
                 {data.length > 0 ? (
-                    <BlogCard
-                        introText={data[0].introText}
-                        image={data[0].heroImage}
-                        key={data[0].id}
-                        id={data[0].id}
-                        title={data[0].title}
-                        dateCreated={data[0].createdAt}
-                        category={data[0].category}
-                    />
+                    <>
+                        <BlogCard
+                            introText={data[0].introText}
+                            image={data[0].heroImage}
+                            key={data[0].id}
+                            id={data[0].id}
+                            title={data[0].title}
+                            dateCreated={formattedDate2}
+                            category={data[0].category}
+                        />
+                        <BlogCard
+                            introText={data[1].introText}
+                            image={data[1].heroImage}
+                            key={data[1].id}
+                            id={data[1].id}
+                            title={data[1].title}
+                            dateCreated={formattedDate}
+                            category={data[1].category}
+                        />
+                    </>
                 ) : (
                     <p>No recent posts available.</p>
                 )}
-                {/* <BlogCard introText={data[1].attributes.cardText}
-                        image={data[1].attributes.cardPhoto.data.attributes.url}
-                        key={data[1].id}
-                        id={data[1].id} 
-                        title={data[1].attributes.title}
-                        dateCreated={data[1].attributes.createdAt}
-                        category={data[1].attributes.category.data.attributes.name}/> */}
             </div>
         </div>
     )
