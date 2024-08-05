@@ -1,7 +1,7 @@
 import React, { createContext, useCallback } from "react";
 import { FirebaseContextType } from "../types/FirebaseContextType";
 import { initializeApp } from "firebase/app";
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, DocumentSnapshot, getCountFromServer, getDoc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, updateDoc } from "firebase/firestore";
 import { FIREBASE_API } from "../config-global";
 import { Post } from "../types/Post";
 
@@ -55,5 +55,39 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }, []);
 
-    return <AuthContext.Provider value={{ getAllPosts, getPostById }}>{children}</AuthContext.Provider>
+    // GET TOTAL NUMBER OF POSTS
+    const getTotalDocumentCount = useCallback(async (): Promise<number> => {
+        const postsCollectionRef = collection(DB, 'posts');
+        const snapshot = await getCountFromServer(postsCollectionRef);
+        return snapshot.data().count;
+    }, []);
+
+    // GET TOTAL NUMBER OF PAGES
+    const getTotalPages = useCallback(async (): Promise<number> => {
+        const postsPerPage = 6;
+        const totalPosts = await getTotalDocumentCount();
+        return Math.ceil(totalPosts / postsPerPage);
+    }, []);
+
+    // FETCH POSTS FOR PAGE
+    const fetchPostsForPage = useCallback(async (startAfterDoc: DocumentSnapshot | null = null, limitCount: number = 6): Promise<{ posts: Post[], lastVisible: DocumentSnapshot | null }> => {
+        const postsCollectionRef = collection(DB, 'posts');
+
+        let q;
+        if (startAfterDoc) {
+            q = query(postsCollectionRef, orderBy('createdAt', 'desc'), startAfter(startAfterDoc), limit(limitCount));
+        } else {
+            q = query(postsCollectionRef, orderBy('createdAt', 'desc'), limit(limitCount));
+        }
+        // const q = query(postsCollectionRef, orderBy('createdAt', 'desc'), startAfter(startAfterDoc), limit(limitCount));
+        const querySnapshot = await getDocs(q);
+        const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Post[];
+
+        // Get the last visible document snapshot
+        const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
+
+        return { posts, lastVisible };
+    }, []);
+
+    return <AuthContext.Provider value={{ getAllPosts, getPostById, getTotalDocumentCount, getTotalPages, fetchPostsForPage }}>{children}</AuthContext.Provider>
 }

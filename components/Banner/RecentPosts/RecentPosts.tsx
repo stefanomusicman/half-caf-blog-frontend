@@ -4,6 +4,7 @@ import BlogCard from '../../BlogCard/BlogCard';
 import { Post } from '../../../types/Post';
 import { useAuthContext } from '../../../firebase/useAuthContext';
 import { useEffect, useState } from 'react';
+import DateHelpers from '../../../helpers/date-helpers';
 
 const RecentPosts = () => {
     const { getAllPosts } = useAuthContext();
@@ -23,13 +24,16 @@ const RecentPosts = () => {
         fetchAllPosts();
     }, [getAllPosts]);
 
-    const createdAt = data[0]?.createdAt;
-    const date = createdAt ? createdAt.toDate() : new Date();
-    const formattedDate = date.toLocaleDateString();
+    const formattedDate = DateHelpers.formatFirebaseTimestamp(data[0]?.createdAt);
+    const formattedDate2 = DateHelpers.formatFirebaseTimestamp(data[1]?.createdAt);
 
-    const createdAt2 = data[1]?.createdAt;
-    const date2 = createdAt2 ? createdAt2.toDate() : new Date();
-    const formattedDate2 = date2.toLocaleDateString();
+    // const createdAt = data[0]?.createdAt;
+    // const date = createdAt ? createdAt.toDate() : new Date();
+    // const formattedDate = date.toLocaleDateString();
+
+    // const createdAt2 = data[1]?.createdAt;
+    // const date2 = createdAt2 ? createdAt2.toDate() : new Date();
+    // const formattedDate2 = date2.toLocaleDateString();
 
     return (
         <div className={styles.contentBox}>
