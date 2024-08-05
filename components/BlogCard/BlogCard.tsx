@@ -22,7 +22,7 @@ const BlogCard: React.FC<{ dateCreated: string, introText: string, image: string
                     <div className={styles.date}>
                         <p>{<AiOutlineCalendar />}{dateCreated}</p>
                         <div className={styles.categoryBox}>
-                            <svg className={styles.svg} width='198' height='32' viewBox='0 0 298 32' fill='red' xmlns='http://www.w3.org/2000/svg'><path d='M1 17.1944C62.6418 7.28318 174.478 -8.49028 296 27' stroke='%23F6BFB3' strokeWidth='9' /></svg>
+                            {/* <svg className={styles.svg} width='198' height='32' viewBox='0 0 298 32' fill='red' xmlns='http://www.w3.org/2000/svg'><path d='M1 17.1944C62.6418 7.28318 174.478 -8.49028 296 27' stroke='%23F6BFB3' strokeWidth='9' /></svg> */}
                             <p>{category}</p>
                         </div>
                     </div>
