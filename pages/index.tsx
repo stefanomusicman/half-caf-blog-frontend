@@ -5,22 +5,22 @@ import Footer from '../components/Footer/Footer'
 import Navigation from '../components/NavBar/Navigation'
 import { PostInfo } from './posts'
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
 
-  const res = await fetch('https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate[cardPhoto][fields][0]=url');
-  const data = await res.json();
+//   const res = await fetch('https://half-caf-blog.herokuapp.com/api/posts?fields=title,cardText,createdAt&sort=id:desc&populate[category][fields][0]=name&populate[cardPhoto][fields][0]=url');
+//   const data = await res.json();
 
-  return {
-    props: data,
-  }
-}
+//   return {
+//     props: data,
+//   }
+// }
 
-const Home: NextPage<{data: PostInfo[]}> = ({data}) => {
+const Home: NextPage<{ data: PostInfo[] }> = ({ data }) => {
 
   return (
     <React.Fragment>
       <Navigation />
-      <Banner data={data}/>
+      {/* <Banner data={data} /> */}
       <Footer />
     </React.Fragment>
   )
