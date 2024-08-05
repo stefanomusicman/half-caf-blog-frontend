@@ -22,28 +22,28 @@ const Footer = () => {
         e.preventDefault();
 
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-          postEmail(email);
-          setEmail('');
+            postEmail(email);
+            setEmail('');
         } else {
             alert('Please enter a valid email');
         }
     }
 
-    return(
+    return (
         <footer className={styles.main}>
             <div className={styles.captionBox}>
                 <h1>Get latest posts delivered right to your inbox</h1>
             </div>
             <form onSubmit={submitHandler} className={styles.form}>
-                <input 
+                <input
                     type='email'
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
-                    placeholder='Your email address'/>
-                <button type='submit'>{<AiOutlineUserAdd className={styles.icon}/>}Join today</button>
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder='Your email address' />
+                <button type='submit'>{<AiOutlineUserAdd className={styles.icon} />}Join today</button>
             </form>
             <div className={styles.copyright}>
-                <h3>© 2022 Half Caf Blog. All rights reserved.</h3>
+                <h3>© 2024 Half Caf Blog. All rights reserved.</h3>
             </div>
         </footer>
     )

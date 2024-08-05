@@ -21,7 +21,7 @@ const Home: NextPage<{ data: PostInfo[] }> = ({ data }) => {
   return (
     <AuthProvider>
       <Navigation />
-      {/* <Banner data={data} /> */}
+      <Banner />
       <Footer />
     </AuthProvider>
   )
