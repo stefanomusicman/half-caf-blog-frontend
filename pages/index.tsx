@@ -4,6 +4,7 @@ import Banner from '../components/Banner/Banner'
 import Footer from '../components/Footer/Footer'
 import Navigation from '../components/NavBar/Navigation'
 import { PostInfo } from './posts'
+import { AuthProvider } from '../firebase/FirebaseContext'
 
 // export async function getStaticProps() {
 
@@ -18,11 +19,11 @@ import { PostInfo } from './posts'
 const Home: NextPage<{ data: PostInfo[] }> = ({ data }) => {
 
   return (
-    <React.Fragment>
+    <AuthProvider>
       <Navigation />
       {/* <Banner data={data} /> */}
       <Footer />
-    </React.Fragment>
+    </AuthProvider>
   )
 }
 
