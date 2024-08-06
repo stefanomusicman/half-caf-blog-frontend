@@ -1,7 +1,7 @@
 import React, { createContext, useCallback } from "react";
 import { FirebaseContextType } from "../types/FirebaseContextType";
 import { initializeApp } from "firebase/app";
-import { collection, doc, DocumentSnapshot, getCountFromServer, getDoc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, updateDoc } from "firebase/firestore";
+import { collection, doc, DocumentSnapshot, endAt, getCountFromServer, getDoc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, startAt, updateDoc, where } from "firebase/firestore";
 import { FIREBASE_API } from "../config-global";
 import { Post } from "../types/Post";
 
@@ -79,7 +79,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         } else {
             q = query(postsCollectionRef, orderBy('createdAt', 'desc'), limit(limitCount));
         }
-        // const q = query(postsCollectionRef, orderBy('createdAt', 'desc'), startAfter(startAfterDoc), limit(limitCount));
         const querySnapshot = await getDocs(q);
         const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Post[];
 
@@ -89,5 +88,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return { posts, lastVisible };
     }, []);
 
-    return <AuthContext.Provider value={{ getAllPosts, getPostById, getTotalDocumentCount, getTotalPages, fetchPostsForPage }}>{children}</AuthContext.Provider>
+    // FETCH POSTS BASED ON SEARCH TERM
+    const fetchPostsBySearchTerm = useCallback(async (searchTerm: string): Promise<Post[]> => {
+        const postsCollectionRef = collection(DB, 'posts');
+        const lowercasedTerm = searchTerm.toLowerCase();
+
+        // const q = query(postsCollectionRef, orderBy('title'), startAt(searchTerm), endAt(searchTerm + '\uf8ff'));
+        const q = query(postsCollectionRef, where('searchKeywords', 'array-contains', lowercasedTerm));
+        const querySnapshot = await getDocs(q);
+        const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Post[];
+        return posts;
+    }, []);
+
+    return <AuthContext.Provider value={{ getAllPosts, getPostById, getTotalDocumentCount, getTotalPages, fetchPostsForPage, fetchPostsBySearchTerm }}>{children}</AuthContext.Provider>
 }

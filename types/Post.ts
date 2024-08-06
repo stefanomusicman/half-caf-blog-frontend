@@ -10,6 +10,7 @@ export type Post = {
     finalVerdict: string;
     heroImage: string;
     secondImage: string;
+    searchKeywords: string[];
     createdAt: Timestamp;
     category: string;
 }
