@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from "react";
+import React, { createContext, useCallback, useState } from "react";
 import { FirebaseContextType } from "../types/FirebaseContextType";
 import { initializeApp } from "firebase/app";
 import { collection, doc, DocumentSnapshot, endAt, getCountFromServer, getDoc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, startAt, updateDoc, where } from "firebase/firestore";
@@ -20,8 +20,14 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+    const [cachedPosts, setCachedPosts] = useState<Post[] | null>(null);
+
     // FETCH ALL POSTS FROM FIRESTORE
     const getAllPosts = useCallback(async (): Promise<Post[]> => {
+        if (cachedPosts !== null) {
+            return cachedPosts;
+        }
+
         try {
             const postsCollectionRef = collection(DB, 'posts');
             const querySnapshot = await getDocs(postsCollectionRef);
@@ -31,12 +37,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 ...doc.data(),
             })) as Post[];
 
+            setCachedPosts(posts);
             return posts;
         } catch (error) {
             console.error('Error fetching posts: ', error);
             throw new Error('Error fetching posts');
         }
-    }, []);
+    }, [cachedPosts]);
 
     // FETCH POST BY ID
     const getPostById = useCallback(async (id: string): Promise<Post> => {
@@ -100,5 +107,5 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return posts;
     }, []);
 
-    return <AuthContext.Provider value={{ getAllPosts, getPostById, getTotalDocumentCount, getTotalPages, fetchPostsForPage, fetchPostsBySearchTerm }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ getAllPosts, getPostById, getTotalDocumentCount, getTotalPages, fetchPostsForPage, fetchPostsBySearchTerm, cachedPosts }}>{children}</AuthContext.Provider>
 }

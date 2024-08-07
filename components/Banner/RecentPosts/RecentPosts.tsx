@@ -11,11 +11,11 @@ const RecentPosts = () => {
     const [data, setData] = useState<Post[]>([]);
 
     useEffect(() => {
+        console.log('FETCHING DATA FOR RECENT POSTS');
         const fetchAllPosts = async () => {
             try {
                 const posts = await getAllPosts();
                 setData(posts);
-                console.log('POSTS', posts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
@@ -26,14 +26,6 @@ const RecentPosts = () => {
 
     const formattedDate = DateHelpers.formatFirebaseTimestamp(data[0]?.createdAt);
     const formattedDate2 = DateHelpers.formatFirebaseTimestamp(data[1]?.createdAt);
-
-    // const createdAt = data[0]?.createdAt;
-    // const date = createdAt ? createdAt.toDate() : new Date();
-    // const formattedDate = date.toLocaleDateString();
-
-    // const createdAt2 = data[1]?.createdAt;
-    // const date2 = createdAt2 ? createdAt2.toDate() : new Date();
-    // const formattedDate2 = date2.toLocaleDateString();
 
     return (
         <div className={styles.contentBox}>

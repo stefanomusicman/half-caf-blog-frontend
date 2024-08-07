@@ -8,4 +8,5 @@ export type FirebaseContextType = {
     getTotalPages: () => Promise<number>;
     fetchPostsForPage: (startAfterDoc: DocumentSnapshot | null, limitCount: number) => Promise<{ posts: Post[], lastVisible: DocumentSnapshot | null }>;
     fetchPostsBySearchTerm: (searchTerm: string) => Promise<Post[]>;
+    cachedPosts: Post[] | null;
 }
