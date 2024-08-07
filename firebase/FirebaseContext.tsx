@@ -67,7 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const postsPerPage = 6;
         const totalPosts = await getTotalDocumentCount();
         return Math.ceil(totalPosts / postsPerPage);
-    }, []);
+    }, [getTotalDocumentCount]);
 
     // FETCH POSTS FOR PAGE
     const fetchPostsForPage = useCallback(async (startAfterDoc: DocumentSnapshot | null = null, limitCount: number = 6): Promise<{ posts: Post[], lastVisible: DocumentSnapshot | null }> => {

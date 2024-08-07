@@ -22,55 +22,57 @@ const BlogPosts = () => {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1); //Responsible for storing the page number
   const [posts, setPosts] = useState<Post[]>([]);
-  const [lastDoc, setLastDoc] = useState<DocumentSnapshot | null>(null);
+  // const [lastDoc, setLastDoc] = useState<DocumentSnapshot | null>(null);
+  const lastDocRef = useRef<DocumentSnapshot | null>(null);
 
   //Creates the different page numbers and fetches the data based on current page
   useEffect(() => {
     async function fetchData() {
+      console.log('Fetching data for page');
       const total = await getTotalPages();
       setTotalPages(total);
 
       // Determine startAfterDoc for pagination
       let startAfterDoc: DocumentSnapshot | null = null;
-      if (lastDoc && currentPage > 1) {
-        startAfterDoc = lastDoc;
+      if (lastDocRef.current && currentPage > 1) {
+        startAfterDoc = lastDocRef.current;
       }
 
       const { posts: fetchedPosts, lastVisible } = await fetchPostsForPage(startAfterDoc, 6);
 
       setPosts(fetchedPosts);
-      setLastDoc(lastVisible);
+      lastDocRef.current = lastVisible;
     }
 
     fetchData();
-  }, [currentPage, getTotalPages, fetchPostsForPage, lastDoc]);
+  }, [currentPage, getTotalPages, fetchPostsForPage]);
 
   //Function for fetching Data based on search query
-  function getDataFromSearch(term: string): void {
-    const fetchSearchData = async () => {
-      const data = await fetchPostsBySearchTerm(term);
+  // function getDataFromSearch(term: string): void {
+  //   const fetchSearchData = async () => {
+  //     const data = await fetchPostsBySearchTerm(term);
 
-      setIsSearching(true);
-      setSearchResults(data);
-    }
-    fetchSearchData();
-  }
+  //     setIsSearching(true);
+  //     setSearchResults(data);
+  //   }
+  //   fetchSearchData();
+  // }
 
   // Responsible for listening to every search term and carrying out a request to fetch appropriate data
-  useEffect(() => {
-    if (searchTerm.length === 0 && inputRef.current?.value.length === 0) {
-      setIsSearching(false);
-    } else {
-      const timer = setTimeout(() => {
-        if (searchTerm === String(inputRef.current?.value)) {
-          getDataFromSearch(searchTerm);
-        }
-      }, 500);
-      return () => {
-        clearTimeout(timer);
-      }
-    }
-  }, [searchTerm, inputRef]);
+  // useEffect(() => {
+  //   if (searchTerm.length === 0 && inputRef.current?.value.length === 0) {
+  //     setIsSearching(false);
+  //   } else {
+  //     const timer = setTimeout(() => {
+  //       if (searchTerm === String(inputRef.current?.value)) {
+  //         getDataFromSearch(searchTerm);
+  //       }
+  //     }, 500);
+  //     return () => {
+  //       clearTimeout(timer);
+  //     }
+  //   }
+  // }, [searchTerm, inputRef]);
 
   return (
     <div id="top">
