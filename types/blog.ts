@@ -8,6 +8,15 @@ export type Author = {
   _ref?: number | string;
 };
 
+export interface IBlogCard {
+  _id: string;
+  title: string;
+  mainImage: SanityImageSource;
+  _createdAt: string;
+  bodyText: string;
+  categoryTitle: string;
+}
+
 export interface Blog {
   _id: string;
   title: string;

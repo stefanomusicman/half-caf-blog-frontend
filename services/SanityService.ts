@@ -1,7 +1,7 @@
 import { createClient, SanityClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url"
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { Blog } from "../types/blog";
+import { Blog, IBlogCard } from "../types/blog";
 
 class SanityService {
     private client: SanityClient;
@@ -45,6 +45,27 @@ class SanityService {
             console.error(`ERROR FETCHING ARTICLES OF CATEGORY ${categoryName}: `, error);
         }
         return [];
+    }
+
+    async getArticlesForBlogCards(): Promise<IBlogCard[]> {
+        try {
+            const request = `
+                *[_type == "post"] {
+                _id,
+                title,
+                mainImage,
+                _createdAt,
+                "categoryTitle": categories[0]->title,
+                "bodyText": body[2].children[0].text
+                }
+            `;
+
+            const blogCards = await this.client.fetch(request);
+            return blogCards as IBlogCard[];
+        } catch (error) {
+            console.error('ERROR FETCHING ARTICLES FOR BLOG CARDS: ', error);
+            return [];
+        }
     }
 
     async getArticleById(id: string): Promise<Blog> {

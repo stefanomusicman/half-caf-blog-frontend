@@ -5,11 +5,9 @@ import Navigation from "../../components/NavBar/Navigation";
 import styles from './posts.module.css';
 import Title from "../../components/Title/Title";
 import Head from "next/head";
-import { useAuthContext } from "../../firebase/useAuthContext";
-import { Post } from "../../types/Post";
 import Pagination from "../../components/Posts/pagination";
-import DateHelpers from "../../helpers/date-helpers";
-import { DocumentSnapshot } from "firebase/firestore";
+import { IBlogCard } from "../../types/blog";
+import SanityService from "../../services/SanityService";
 
 const BlogPosts = () => {
 
@@ -18,34 +16,34 @@ const BlogPosts = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { getTotalPages, fetchPostsForPage, fetchPostsBySearchTerm } = useAuthContext();
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1); //Responsible for storing the page number
-  const [posts, setPosts] = useState<Post[]>([]);
-  // const [lastDoc, setLastDoc] = useState<DocumentSnapshot | null>(null);
-  const lastDocRef = useRef<DocumentSnapshot | null>(null);
+  const [allPosts, setAllPosts] = useState<IBlogCard[]>([]);
+  const [posts, setPosts] = useState<IBlogCard[]>([]);
+  const postsPerPage = 6;
 
   //Creates the different page numbers and fetches the data based on current page
   useEffect(() => {
     async function fetchData() {
       console.log('Fetching data for page');
-      const total = await getTotalPages();
+      const fetchedPosts = await SanityService.getArticlesForBlogCards();
+      setAllPosts(fetchedPosts);
+      
+      // Calculate total pages
+      const total = Math.ceil(fetchedPosts.length / postsPerPage);
       setTotalPages(total);
-
-      // Determine startAfterDoc for pagination
-      let startAfterDoc: DocumentSnapshot | null = null;
-      if (lastDocRef.current && currentPage > 1) {
-        startAfterDoc = lastDocRef.current;
-      }
-
-      const { posts: fetchedPosts, lastVisible } = await fetchPostsForPage(startAfterDoc, 6);
-
-      setPosts(fetchedPosts);
-      lastDocRef.current = lastVisible;
     }
 
     fetchData();
-  }, [currentPage, getTotalPages, fetchPostsForPage]);
+  }, []);
+
+  // Update displayed posts when page changes
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+    const paginatedPosts = allPosts.slice(startIndex, endIndex);
+    setPosts(paginatedPosts);
+  }, [currentPage, allPosts]);
 
   //Function for fetching Data based on search query
   // function getDataFromSearch(term: string): void {
@@ -93,15 +91,15 @@ const BlogPosts = () => {
             type='text' />
         </div> */}
         <div className={isSearching && searchResults.length === 0 ? styles.primaryBodyContainerSearch : styles.primaryBodyContainer}>
-          {!isSearching && posts.map((post: Post) =>
+          {!isSearching && posts.map((post: IBlogCard) =>
             <BlogCard
-              introText={post.introText}
-              image={post.heroImage}
-              key={post.id}
-              id={post.id}
+              key={post._id}
+              _id={post._id}
               title={post.title}
-              dateCreated={DateHelpers.formatFirebaseTimestamp(post.createdAt)}
-              category={post.category}
+              mainImage={post.mainImage}
+              _createdAt={post._createdAt}
+              bodyText={post.bodyText}
+              categoryTitle={post.categoryTitle}
             />
           )}
           {/* {isSearching && searchResults.map((post: Post) =>
