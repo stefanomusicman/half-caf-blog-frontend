@@ -43,7 +43,7 @@ const Footer = () => {
                 <button type='submit'>{<AiOutlineUserAdd className={styles.icon} />}Join today</button>
             </form>
             <div className={styles.copyright}>
-                <h3>© 2024 Half Caf Blog. All rights reserved.</h3>
+                <h3>© {new Date().getFullYear()} Half Caf Blog. All rights reserved.</h3>
             </div>
         </footer>
     )
