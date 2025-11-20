@@ -1,57 +1,39 @@
 import styles from './RecentPosts.module.css';
 import Title from '../../Title/Title';
 import BlogCard from '../../BlogCard/BlogCard';
-import { Post } from '../../../types/Post';
-import { useAuthContext } from '../../../firebase/useAuthContext';
 import { useEffect, useState } from 'react';
-import DateHelpers from '../../../helpers/date-helpers';
+import { IBlogCard } from '../../../types/blog';
+import SanityService from '../../../services/SanityService';
 
 const RecentPosts = () => {
-    const { getAllPosts } = useAuthContext();
-    const [data, setData] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<IBlogCard[]>([]);
 
     useEffect(() => {
-        console.log('FETCHING DATA FOR RECENT POSTS');
-        const fetchAllPosts = async () => {
-            try {
-                const posts = await getAllPosts();
-                setData(posts);
-            } catch (error) {
-                console.error('Error fetching posts:', error);
-            }
-        };
-
-        fetchAllPosts();
-    }, [getAllPosts]);
-
-    const formattedDate = DateHelpers.formatFirebaseTimestamp(data[0]?.createdAt);
-    const formattedDate2 = DateHelpers.formatFirebaseTimestamp(data[1]?.createdAt);
+        async function fetchData() {
+          console.log('Fetching data for page');
+          const fetchedPosts = await SanityService.getTwoLatestArticlesForBlogCards();
+          setPosts(fetchedPosts);
+        }
+    
+        fetchData();
+      }, []);
 
     return (
         <div className={styles.contentBox}>
             <Title title="Recent Posts" />
             <div className={styles.primaryBodyContainer}>
-                {data.length > 0 ? (
-                    <>
+                {posts.length > 0 ? (
+                    posts.map((post) => (
                         <BlogCard
-                            introText={data[0].introText}
-                            image={data[0].heroImage}
-                            key={data[0].id}
-                            id={data[0].id}
-                            title={data[0].title}
-                            dateCreated={formattedDate2}
-                            category={data[0].category}
+                            key={post._id}
+                            _id={post._id}
+                            title={post.title}
+                            mainImage={post.mainImage}
+                            _createdAt={post._createdAt}
+                            bodyText={post.bodyText}
+                            categoryTitle={post.categoryTitle}
                         />
-                        <BlogCard
-                            introText={data[1].introText}
-                            image={data[1].heroImage}
-                            key={data[1].id}
-                            id={data[1].id}
-                            title={data[1].title}
-                            dateCreated={formattedDate}
-                            category={data[1].category}
-                        />
-                    </>
+                    ))
                 ) : (
                     <p>No recent posts available.</p>
                 )}

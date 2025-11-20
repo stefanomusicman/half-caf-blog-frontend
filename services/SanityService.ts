@@ -68,6 +68,27 @@ class SanityService {
         }
     }
 
+    async getTwoLatestArticlesForBlogCards(): Promise<IBlogCard[]> {
+        try {
+            const request = `
+                *[_type == "post"] | order(_createdAt desc) [0..1] {
+                _id,
+                title,
+                mainImage,
+                _createdAt,
+                "categoryTitle": categories[0]->title,
+                "bodyText": body[2].children[0].text
+                }
+            `;
+
+            const blogCards = await this.client.fetch(request);
+            return blogCards as IBlogCard[];
+        } catch (error) {
+            console.error('ERROR FETCHING ARTICLES FOR BLOG CARDS: ', error);
+            return [];
+        }
+    }
+
     async getArticleById(id: string): Promise<Blog> {
         try {
             const request = `
