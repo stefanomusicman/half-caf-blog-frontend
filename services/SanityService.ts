@@ -74,6 +74,7 @@ class SanityService {
                 *[_type == "post" && _id match "${id}"] {
                     _id,
                     title,
+                    _createdAt,
                     slug{current},
                     mainImage,
                     secondaryImage,
@@ -100,6 +101,7 @@ class SanityService {
                 _id: '',
                 title: 'Article Not Found',
                 slug: { current: '' },
+                _createdAt: '',
                 mainImage: '',
                 secondaryImage: '',
                 categories: [],

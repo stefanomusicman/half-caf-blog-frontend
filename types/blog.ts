@@ -19,6 +19,7 @@ export interface IBlogCard {
 
 export interface Blog {
   _id: string;
+  _createdAt: string;
   title: string;
   slug: {
     current: string;
