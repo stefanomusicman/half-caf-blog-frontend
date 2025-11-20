@@ -2,6 +2,7 @@ import SVG from "./SVG";
 import styles from './Banner.module.css';
 import RecentPosts from "./RecentPosts/RecentPosts";
 import React from "react";
+import Image from "next/image";
 import { FaCoffee, FaMapMarkerAlt, FaStar, FaHeart } from 'react-icons/fa';
 
 const Banner = () => {
@@ -15,17 +16,19 @@ const Banner = () => {
             </div>
             <RecentPosts />
             <div className={styles.aboutSection}>
-                <img 
+                <Image 
                     src="/mtl-landscape.jpg" 
                     alt="Montreal landscape" 
                     className={styles.landscapeImage}
+                    width={1200}
+                    height={600}
                 />
                 <div className={styles.aboutText}>
                     <p className={styles.quote}>
                         Beneath the cobblestones and gleaming glass, a city breathes coffee.
                     </p>
                     <p className={styles.description}>
-                        Montreal is a symphony of neighbourhoods, each with its own rhythm and aroma. In the steam rising from an espresso cup, you'll find the stories of artists, students, dreamers, and entrepreneurs. This blog is our love letter to the city's vibrant café culture—a guide to the cozy corners, the perfect pour-overs, and the buttery croissants that make Montreal a true coffee lover's paradise. Join us as we explore one cup at a time.
+                        Montreal is a symphony of neighbourhoods, each with its own rhythm and aroma. In the steam rising from an espresso cup, you&apos;ll find the stories of artists, students, dreamers, and entrepreneurs. This blog is our love letter to the city&apos;s vibrant café culture—a guide to the cozy corners, the perfect pour-overs, and the buttery croissants that make Montreal a true coffee lover&apos;s paradise. Join us as we explore one cup at a time.
                     </p>
                 </div>
             </div>
@@ -33,7 +36,7 @@ const Banner = () => {
                 <div className={styles.gridItem}>
                     <FaCoffee className={styles.gridIcon} />
                     <h3 className={styles.gridTitle}>Artisan Roasters</h3>
-                    <p className={styles.gridText}>Discover Montreal's finest specialty coffee roasters, from Mile End to Old Port, where every bean tells a story.</p>
+                    <p className={styles.gridText}>Discover Montreal&apos;s finest specialty coffee roasters, from Mile End to Old Port, where every bean tells a story.</p>
                 </div>
                 <div className={styles.gridItem}>
                     <FaMapMarkerAlt className={styles.gridIcon} />

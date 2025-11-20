@@ -2,9 +2,6 @@ import React, { Fragment } from "react";
 import Navigation from "../../components/NavBar/Navigation";
 import styles from "./about-us.module.css";
 import Image from "next/image";
-import coffee1 from "../../public/coffee1.jpeg";
-import coffee2 from "../../public/coffee2.jpg";
-import coffee3 from "../../public/coffee3.jpg";
 import Footer from "../../components/Footer/Footer";
 import Title from "../../components/Title/Title";
 import Head from "next/head";
@@ -23,9 +20,9 @@ const About = () => {
                     <h2>We are <strong>Half Caf Blog</strong>, a team of passionate <strong>coffee conoisseurs.</strong></h2>
                 </div>
                 <div className={styles.imageContainer}>
-                    <Image className={styles.image} src={coffee2} alt="picture of coffee cup" width={650} height={350}/>
-                    <Image className={styles.image} src={coffee1} alt="picture of coffee cup" width={350} height={310}/>
-                    <Image className={styles.image} src={coffee3} alt="picture of coffee cup" width={375} height={400}/>
+                    <Image className={styles.image} src="/coffee2.jpg" alt="picture of coffee cup" width={650} height={350}/>
+                    <Image className={styles.image} src="/coffee1.jpeg" alt="picture of coffee cup" width={350} height={310}/>
+                    <Image className={styles.image} src="/coffee3.jpg" alt="picture of coffee cup" width={375} height={400}/>
                 </div>
                 <div className={styles.descriptionContainer}>
                     <div className={styles.paragraphOne}>
